@@ -1,11 +1,47 @@
 import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Colors from './../../constant/Colors'
-import {useRouter} from 'expo-router'
+import { useRouter } from 'expo-router'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { doc, setDoc } from 'firebase/firestore'
+import { auth, db } from '../../config/firebaseConfig'
+import { UserDetailContext } from '../../context/UserDetailContext'
 
 export default function SignUp() {
     const router = useRouter();
     const [fullName, setFullName] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
+    const {userDetail, setUserDetail} = useContext(UserDetailContext)
+
+    const CreateNewAccount = () => {
+        createUserWithEmailAndPassword(auth,email,password)
+        .then(async (resp) =>{
+            const user = resp.user;
+            console.log(user);
+            await SaveUser(user);
+            // Save User to Database
+        })
+        .catch(e => {
+            console.log(e.message)
+        })
+    }
+
+    const SaveUser = async (user) => {
+        const data = {
+            name:fullName,
+            email:email,
+            member:false,
+            uid:user?.uid
+        }
+        await setDoc(doc(db, 'users', email),data) 
+
+        setUserDetail(data);
+
+        // Navigate to New Screen
+    }
+
     return (
         <View style={{
             display: 'flex',
@@ -27,10 +63,11 @@ export default function SignUp() {
                 fontFamily: 'outfit-bold'
             }}>Create New Account</Text>
 
-            <TextInput placeholder='Full Name' style={styles.TextInput}/>
-            <TextInput placeholder='Email' style={styles.TextInput}/>
-            <TextInput placeholder='Password' secureTextEntry={true} style={styles.TextInput}/>
+            <TextInput placeholder='Full Name' onChangeText={(value) => setFullName(value)} style={styles.TextInput}/>
+            <TextInput placeholder='Email' onChangeText={(value) => setEmail(value)} style={styles.TextInput}/>
+            <TextInput placeholder='Password' onChangeText={(value) => setPassword(value)} secureTextEntry={true} style={styles.TextInput}/>
             <TouchableOpacity
+            onPress={CreateNewAccount}
             style={{
                 padding: 15,
                 borderRadius: 10,
