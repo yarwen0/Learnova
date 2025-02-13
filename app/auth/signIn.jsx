@@ -24,6 +24,7 @@ export default function SignUp() {
                 console.log(user);
                 await getUserDetail();
                 setLoading(false);
+                router.replace('/(tabs)/home')
             })
             .catch((e) => {
                 console.log(e);
