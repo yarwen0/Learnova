@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router'
 
 export default function NoCourse() {
   const router = useRouter();
+
   return (
     <View style={{
         marginTop: 40,
