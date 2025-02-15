@@ -1,5 +1,6 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
+import Button from '../Shared/Button'
 
 export default function NoCourse() {
   return (
@@ -16,9 +17,14 @@ export default function NoCourse() {
         }}/>
         <Text style={{
             fontFamily: 'outfit-bold',
-            fontSize: '25',
+            fontSize: 25,
             textAlign: 'center'
         }}>You Don't Have Any Course</Text>
+
+        <Button text = {'+ Create New Course'} />
+        <Button text={'Explore Existing Courses'} 
+          type='outline'
+        />
     </View>
   )
 }

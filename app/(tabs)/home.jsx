@@ -8,7 +8,7 @@ export default function Home() {
     return (
         <View style= {{
             padding: 25,
-            fkex: 1,
+            flex: 1,
             backgroundColor: Colors.WHITE,
             paddingTop:Platform.OS == 'ios' && 45
         }}>
