@@ -12,7 +12,9 @@ export default function Button({text, type="fill", onPress, loading}) {
             borderWidth:1,
             borderColor: Colors.PRIMARY,
             backgroundColor:type=='fill'?Colors.PRIMARY:Colors.WHITE,
-        }}>
+        }}
+            disabled={loading}
+        >
         {!loading ?<Text style={{
             textAlign: 'center',
             fontSize: 18,
