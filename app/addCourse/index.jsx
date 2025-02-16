@@ -3,12 +3,20 @@ import React, { useState } from 'react'
 import Button from '../../components/Shared/Button'
 import Colors from '../../constant/Colors'
 import { StyleSheet } from 'react-native'
+import { GenerateTopicsAIModel } from '../../config/AiModel'
+import Prompt from '../../constant/Prompt'
 
 export default function AddCourse() {
     const [loading, setLoading] = useState(false);
-    const onGenerateTopic = () => {
+    const [userInput, setUserInput ] = useState();
+    const onGenerateTopic = async() => {
+        setLoading(true);
         // Get Topic Ideas from AI Model
-
+        const PROMPT = userInput + Prompt.IDEA;
+        const aiResp = await GenerateTopicsAIModel.sendMessage(PROMPT)
+        const topicIdea = aiResp.response.text();
+        console.log(topicIdea);
+        setLoading(false);
     }
 
   return (
@@ -36,6 +44,7 @@ export default function AddCourse() {
             style={styles.textInput}
             numberOfLines={3}
             multiline={true}
+            onChangeText={(value) => setUserInput(value)}
             />
 
             <Button  text={'Generate Topic'} type='outline' onPress={() => onGenerateTopic()} loading={loading} />

@@ -16,11 +16,10 @@ const {
     topP: 0.95,
     topK: 40,
     maxOutputTokens: 8192,
-    responseMimeType: "text/plain",
+    responseMimeType: "application/json",
   };
   
-  async function run() {
-    const chatSession = model.startChat({
+    export const GenerateTopicsAIModel = model.startChat({
       generationConfig,
       history: [
         {
@@ -38,8 +37,6 @@ const {
       ],
     });
   
-    const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
-    console.log(result.response.text());
-  }
+    // const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
+    // console.log(result.response.text());
   
-  run();
