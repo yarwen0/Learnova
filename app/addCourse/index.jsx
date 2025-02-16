@@ -1,10 +1,15 @@
 import { View, Text, Platform, TextInput } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '../../components/Shared/Button'
 import Colors from '../../constant/Colors'
 import { StyleSheet } from 'react-native'
 
 export default function AddCourse() {
+    const [loading, setLoading] = useState(false);
+    const onGenerateTopic = () => {
+        // Get Topic Ideas from AI Model
+
+    }
 
   return (
         <View style={{
@@ -33,7 +38,7 @@ export default function AddCourse() {
             multiline={true}
             />
 
-            <Button  text={'Generate Topic'} type='fill' />
+            <Button  text={'Generate Topic'} type='outline' onPress={() => onGenerateTopic()} loading={loading} />
         </View>
   )
 }
