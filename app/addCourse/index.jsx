@@ -1,4 +1,4 @@
-import { View, Text, Platform, TextInput } from 'react-native'
+import { View, Text, Platform, TextInput, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import Button from '../../components/Shared/Button'
 import Colors from '../../constant/Colors'
@@ -9,13 +9,15 @@ import Prompt from '../../constant/Prompt'
 export default function AddCourse() {
     const [loading, setLoading] = useState(false);
     const [userInput, setUserInput ] = useState();
+    const [topics, setTopics] = useState([]);
     const onGenerateTopic = async() => {
         setLoading(true);
         // Get Topic Ideas from AI Model
         const PROMPT = userInput + Prompt.IDEA;
         const aiResp = await GenerateTopicsAIModel.sendMessage(PROMPT)
-        const topicIdea = aiResp.response.text();
+        const topicIdea = JSON.parse(aiResp.response.text());
         console.log(topicIdea);
+        setTopics(topicIdea);
         setLoading(false);
     }
 
@@ -48,6 +50,34 @@ export default function AddCourse() {
             />
 
             <Button  text={'Generate Topic'} type='outline' onPress={() => onGenerateTopic()} loading={loading} />
+            
+            <View style={{
+                marginTop: 15
+            }}>
+                <Text style={{
+                    fontFamily: 'outfit',
+                    fontSize: 20
+                }}>Select all topics which you want to add in the course</Text>
+
+                <View style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    gap: 10,
+                    marginTop: 6
+                }}>
+                    {topics.map((item, index)=>(
+                        <Pressable key={index}>
+                            <Text style={{
+                                padding: 7,
+                                borderWidth: 0.4,
+                                borderRadius: 99,
+                                paddingHorizontal: 15
+                            }}>{item}</Text>
+                        </Pressable>
+                    ))}
+                </View>
+            </View> 
         </View>
   )
 }
