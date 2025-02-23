@@ -25,12 +25,17 @@ export default function AddCourse() {
     const onTopicSelect=(topic) => {
         const isAlreadyExist = selectedTopic.find((item)=>item==topic)
         if (!isAlreadyExist) {
-            selectedTopic(prev => [...prev,topic])
+            setSelectedTopics(prev => [...prev,topic])
         }
         else {
             const topics = selectedTopic.filter(item=>item!==topic);
             setSelectedTopics(topics);
         }
+    }
+
+    const isTopicSelected = (topic) => {
+        const selection = selectedTopic.find(item=>item==topic);
+        return selection?true:false
     }
 
   return (
@@ -79,12 +84,14 @@ export default function AddCourse() {
                     marginTop: 6
                 }}>
                     {topics.map((item, index)=>(
-                        <Pressable key={index} onPress={onTopicSelect} >
+                        <Pressable key={index} onPress={() => onTopicSelect(item)} >
                             <Text style={{
                                 padding: 7,
                                 borderWidth: 0.4,
                                 borderRadius: 99,
-                                paddingHorizontal: 15
+                                paddingHorizontal: 15,
+                                backgroundColor: isTopicSelected(item)?Colors.PRIMARY:null,
+                                color: isTopicSelected(item)?Colors.WHITE:Colors.PRIMARY
                             }}>{item}</Text>
                         </Pressable>
                     ))}
