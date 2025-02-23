@@ -10,6 +10,7 @@ export default function AddCourse() {
     const [loading, setLoading] = useState(false);
     const [userInput, setUserInput ] = useState();
     const [topics, setTopics] = useState([]);
+    const [selectedTopic, setSelectedTopics] = useState([]);
     const onGenerateTopic = async() => {
         setLoading(true);
         // Get Topic Ideas from AI Model
@@ -19,6 +20,17 @@ export default function AddCourse() {
         console.log(topicIdea);
         setTopics(topicIdea);
         setLoading(false);
+    }
+
+    const onTopicSelect=(topic) => {
+        const isAlreadyExist = selectedTopic.find((item)=>item==topic)
+        if (!isAlreadyExist) {
+            selectedTopic(prev => [...prev,topic])
+        }
+        else {
+            const topics = selectedTopic.filter(item=>item!==topic);
+            setSelectedTopics(topics);
+        }
     }
 
   return (
@@ -67,7 +79,7 @@ export default function AddCourse() {
                     marginTop: 6
                 }}>
                     {topics.map((item, index)=>(
-                        <Pressable key={index}>
+                        <Pressable key={index} onPress={onTopicSelect} >
                             <Text style={{
                                 padding: 7,
                                 borderWidth: 0.4,
