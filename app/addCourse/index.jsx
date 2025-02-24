@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Button from '../../components/Shared/Button'
 import Colors from '../../constant/Colors'
 import { StyleSheet } from 'react-native'
-import { GenerateTopicsAIModel } from '../../config/AiModel'
+import { GenerateCourseAIModel, GenerateTopicsAIModel } from '../../config/AiModel'
 import Prompt from '../../constant/Prompt'
 
 export default function AddCourse() {
@@ -11,6 +11,7 @@ export default function AddCourse() {
     const [userInput, setUserInput ] = useState();
     const [topics, setTopics] = useState([]);
     const [selectedTopics, setSelectedTopics] = useState([]);
+
     const onGenerateTopic = async() => {
         setLoading(true);
         // Get Topic Ideas from AI Model
@@ -36,6 +37,22 @@ export default function AddCourse() {
     const isTopicSelected = (topic) => {
         const selection = selectedTopics.find(item=>item==topic);
         return selection?true:false
+    }
+
+    /**
+     * Used to Generate Course using AI Model
+     */
+
+    const onGenerateCourse = async() => {
+        setLoading(true);
+        const PROMPT = selectedTopics + Prompt.COURSE;
+
+        const aiResp = await GenerateCourseAIModel.sendMessage(PROMPT);
+        const course = JSON.parse(aiResp.response.text());
+        console.log(course);
+        // Save Course info to Database
+        setLoading(false);
+
     }
 
   return (
@@ -99,13 +116,12 @@ export default function AddCourse() {
                 </View>
             </View> 
 
-            {selectedTopics?.length > 0 && <Button text='Generate Course'
+            {selectedTopics?.length>0&& <Button text='Generate Course'
                 onPress={() => onGenerateCourse()}
                 loading={loading}
-            
             />}
         </View>
-  )
+    )
 }
 
 

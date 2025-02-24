@@ -19,7 +19,7 @@ const {
     responseMimeType: "application/json",
   };
   
-    export const GenerateTopicsAIModel = model.startChat({
+export const GenerateTopicsAIModel = model.startChat({
       generationConfig,
       history: [
         {
@@ -35,7 +35,14 @@ const {
           ],
         },
       ],
-    });
+});
+
+export const GenerateCourseAIModel = model.startChat({
+    generationConfig,
+    history: [
+
+    ],
+});
   
     // const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
     // console.log(result.response.text());
