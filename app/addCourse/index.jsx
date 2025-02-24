@@ -10,7 +10,7 @@ export default function AddCourse() {
     const [loading, setLoading] = useState(false);
     const [userInput, setUserInput ] = useState();
     const [topics, setTopics] = useState([]);
-    const [selectedTopic, setSelectedTopics] = useState([]);
+    const [selectedTopics, setSelectedTopics] = useState([]);
     const onGenerateTopic = async() => {
         setLoading(true);
         // Get Topic Ideas from AI Model
@@ -23,18 +23,18 @@ export default function AddCourse() {
     }
 
     const onTopicSelect=(topic) => {
-        const isAlreadyExist = selectedTopic.find((item)=>item==topic)
+        const isAlreadyExist = selectedTopics.find((item)=>item==topic)
         if (!isAlreadyExist) {
             setSelectedTopics(prev => [...prev,topic])
         }
         else {
-            const topics = selectedTopic.filter(item=>item!==topic);
+            const topics = selectedTopics.filter(item=>item!==topic);
             setSelectedTopics(topics);
         }
     }
 
     const isTopicSelected = (topic) => {
-        const selection = selectedTopic.find(item=>item==topic);
+        const selection = selectedTopics.find(item=>item==topic);
         return selection?true:false
     }
 
@@ -69,7 +69,8 @@ export default function AddCourse() {
             <Button  text={'Generate Topic'} type='outline' onPress={() => onGenerateTopic()} loading={loading} />
             
             <View style={{
-                marginTop: 15
+                marginTop: 15,
+                marginBottom: 10
             }}>
                 <Text style={{
                     fontFamily: 'outfit',
@@ -97,6 +98,12 @@ export default function AddCourse() {
                     ))}
                 </View>
             </View> 
+
+            {selectedTopics?.length > 0 && <Button text='Generate Course'
+                onPress={() => onGenerateCourse()}
+                loading={loading}
+            
+            />}
         </View>
   )
 }
@@ -113,3 +120,6 @@ const styles = StyleSheet.create({
         fontSize: 18
     }
 })
+
+
+
