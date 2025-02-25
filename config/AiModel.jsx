@@ -39,9 +39,7 @@ export const GenerateTopicsAIModel = model.startChat({
 
 export const GenerateCourseAIModel = model.startChat({
     generationConfig,
-    history: [
-
-    ],
+    history: [],
 });
   
     // const result = await chatSession.sendMessage("INSERT_INPUT_HERE");

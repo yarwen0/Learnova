@@ -52,13 +52,29 @@ export default function AddCourse() {
     const onGenerateCourse = async() => {
         setLoading(true);
         const PROMPT = selectedTopics + Prompt.COURSE;
+
+        try{
+            
         const aiResp = await GenerateCourseAIModel.sendMessage(PROMPT);
-        const course = JSON.parse(aiResp.response.text());
-        console.log(course);
+        const resp = JSON.parse(aiResp.response.text());
+        const courses = resp.courses;
+        console.log(courses);
+
         // Save Course info to Database
+        courses?.forEach(async(course) => {
+            await setDoc(doc(db, 'Courses', Date.now().toString()),{
+                ...course,
+                createdOn: new Date(),
+                createdBy: userDetail?.email
+            })
+        })
+        router.push('/(tabs)/home')
         setLoading(false);
     }
-    
+    catch(e){
+        setLoading(false);
+    }
+    }
 
   return (
         <ScrollView style={{
