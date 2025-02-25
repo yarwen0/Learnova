@@ -1,12 +1,14 @@
-import { View, Text, Platform, TextInput, Pressable } from 'react-native'
+import { View, Text, Platform, TextInput, Pressable, ScrollView } from 'react-native'
 import React, { useContext, useState } from 'react'
 import Button from '../../components/Shared/Button'
 import Colors from '../../constant/Colors'
 import { StyleSheet } from 'react-native'
 import { GenerateCourseAIModel, GenerateTopicsAIModel } from '../../config/AiModel'
 import Prompt from '../../constant/Prompt'
-import {db} from './../../config/firebaseConfig'
+import {db } from './../../config/firebaseConfig'
 import {UserDetailContext} from './../../context/UserDetailContext'
+import {useRouter} from 'expo-router';
+import { doc, setDoc } from 'firebase/firestore';
 
 export default function AddCourse() {
     const [loading, setLoading] = useState(false);
@@ -14,6 +16,7 @@ export default function AddCourse() {
     const [userInput, setUserInput ] = useState();
     const [topics, setTopics] = useState([]);
     const [selectedTopics, setSelectedTopics] = useState([]);
+    const router = useRouter();
 
     const onGenerateTopic = async() => {
         setLoading(true);
@@ -49,25 +52,16 @@ export default function AddCourse() {
     const onGenerateCourse = async() => {
         setLoading(true);
         const PROMPT = selectedTopics + Prompt.COURSE;
-
         const aiResp = await GenerateCourseAIModel.sendMessage(PROMPT);
-        const courses = JSON.parse(aiResp.response.text());
-        console.log(courses);
+        const course = JSON.parse(aiResp.response.text());
+        console.log(course);
         // Save Course info to Database
-        courses?.forEach(async(course) => {
-            await selectedTopics(doc(db, 'Courses', Date.now().toString()),{
-                ...course,
-                createdOn: new Date(),
-                createdBy: userDetail?.email
-            })
-        })
-
         setLoading(false);
-
     }
+    
 
   return (
-        <View style={{
+        <ScrollView style={{
             padding: 25,
             backgroundColor: Colors.WHITE,
             paddingTop:Platform.OS == 'ios' && 45,
@@ -131,7 +125,7 @@ export default function AddCourse() {
                 onPress={() => onGenerateCourse()}
                 loading={loading}
             />}
-        </View>
+        </ScrollView>
     )
 }
 
