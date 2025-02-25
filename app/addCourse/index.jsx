@@ -49,32 +49,72 @@ export default function AddCourse() {
      * Used to Generate Course using AI Model
      */
 
-    const onGenerateCourse = async() => {
+    const onGenerateCourse = async () => {
         setLoading(true);
         const PROMPT = selectedTopics + Prompt.COURSE;
-
-        try{
+    
+        try {
+            const aiResp = await GenerateCourseAIModel.sendMessage(PROMPT);
             
-        const aiResp = await GenerateCourseAIModel.sendMessage(PROMPT);
-        const resp = JSON.parse(aiResp.response.text());
-        const courses = resp.courses;
-        console.log(courses);
-
-        // Save Course info to Database
-        courses?.forEach(async(course) => {
-            await setDoc(doc(db, 'Courses', Date.now().toString()),{
-                ...course,
-                createdOn: new Date(),
-                createdBy: userDetail?.email
-            })
-        })
-        router.push('/(tabs)/home')
-        setLoading(false);
-    }
-    catch(e){
-        setLoading(false);
-    }
-    }
+            console.log("🔵 Raw AI Response:", aiResp);
+    
+            if (!aiResp || !aiResp.response || !aiResp.response.text) {
+                throw new Error("❌ AI Response is empty or invalid.");
+            }
+    
+            // Ensure response text is valid before parsing
+            const rawText = await aiResp.response.text();  // Ensure this is awaited
+            console.log("🟢 AI Response Text:", rawText);
+    
+            if (!rawText.trim()) {
+                throw new Error("❌ AI returned an empty response.");
+            }
+    
+            let parsedResponse;
+            try {
+                parsedResponse = JSON.parse(rawText);
+            } catch (parseError) {
+                console.error("❌ JSON Parse Error:", parseError);
+                console.log("⚠️ Raw AI Response that caused error:", rawText);
+                throw new Error("❌ Invalid JSON received from AI.");
+            }
+    
+            // Extract courses array safely
+            const coursesArray = parsedResponse.courses || parsedResponse[0]?.courses;
+            
+            if (!Array.isArray(coursesArray)) {
+                throw new Error("❌ 'courses' field is missing or not an array.");
+            }
+    
+            console.log("✅ Parsed AI Response:", coursesArray);
+    
+            // Save Course info to Database
+            for (const course of coursesArray) {
+                if (!course.courseTitle) {
+                    console.warn("⚠️ Skipping invalid course:", course);
+                    continue;
+                }
+    
+                await setDoc(doc(db, 'Courses', Date.now().toString()), {
+                    ...course,
+                    createdOn: new Date(),
+                    createdBy: userDetail?.email || "Unknown User"
+                });
+            }
+    
+            console.log("✅ Courses saved successfully!");
+            router.push('/(tabs)/home');
+        } catch (error) {
+            console.error("❌ Error generating or saving courses:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    
+    
+    
+    
+    
 
   return (
         <ScrollView style={{
