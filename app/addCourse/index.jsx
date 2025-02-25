@@ -1,13 +1,16 @@
 import { View, Text, Platform, TextInput, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Button from '../../components/Shared/Button'
 import Colors from '../../constant/Colors'
 import { StyleSheet } from 'react-native'
 import { GenerateCourseAIModel, GenerateTopicsAIModel } from '../../config/AiModel'
 import Prompt from '../../constant/Prompt'
+import {db} from './../../config/firebaseConfig'
+import {UserDetailContext} from './../../context/UserDetailContext'
 
 export default function AddCourse() {
     const [loading, setLoading] = useState(false);
+    const {userDetail, setUserDetail} = useContext(UserDetailContext)
     const [userInput, setUserInput ] = useState();
     const [topics, setTopics] = useState([]);
     const [selectedTopics, setSelectedTopics] = useState([]);
@@ -48,9 +51,17 @@ export default function AddCourse() {
         const PROMPT = selectedTopics + Prompt.COURSE;
 
         const aiResp = await GenerateCourseAIModel.sendMessage(PROMPT);
-        const course = JSON.parse(aiResp.response.text());
-        console.log(course);
+        const courses = JSON.parse(aiResp.response.text());
+        console.log(courses);
         // Save Course info to Database
+        courses?.forEach(async(course) => {
+            await selectedTopics(doc(db, 'Courses', Date.now().toString()),{
+                ...course,
+                createdOn: new Date(),
+                createdBy: userDetail?.email
+            })
+        })
+
         setLoading(false);
 
     }
