@@ -1,3 +1,4 @@
+
 import { View, Text, Platform, TextInput, Pressable, ScrollView } from 'react-native'
 import React, { useContext, useState } from 'react'
 import Button from '../../components/Shared/Button'
@@ -197,6 +198,3 @@ const styles = StyleSheet.create({
         fontSize: 18
     }
 })
-
-
-
