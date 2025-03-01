@@ -13,7 +13,7 @@ export default function RootLayout() {
   const [userDetail, setUserDetail] = useState();
 
   return (
-    <UserDetailContext.Provider value={{}}>
+    <UserDetailContext.Provider value={{userDetail, setUserDetail}}>
       <Stack screenOptions={{
         headerShown: false
       }}>

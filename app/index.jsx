@@ -15,20 +15,14 @@ export default function Index() {
   const router = useRouter();
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         console.log("User logged in:", user);
         const result = await getDoc(doc(db, "users", user.email));
-        if (result.exists()) {
           setUserDetail(result.data());
-        }
         router.replace("/(tabs)/home");
       }
-    });
-
-    return () => unsubscribe(); // Clean up listener
-  }, []);
+    });  
 
   return (
 
