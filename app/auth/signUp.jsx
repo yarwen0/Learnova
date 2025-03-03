@@ -29,18 +29,27 @@ export default function SignUp() {
     }
 
     const SaveUser = async (user) => {
-        const data = {
-            name:fullName,
-            email:email,
-            member:false,
-            uid:user?.uid
+        try {
+            const data = {
+                name: fullName,
+                email: email,
+                member: false,
+                uid: user?.uid
+            };
+            
+            console.log("Saving user data to Firestore:", data);
+            await setDoc(doc(db, 'users', email), data);
+            console.log("User data saved successfully");
+            
+            setUserDetail(data);
+            console.log("User context updated with:", data);
+            
+            // Navigate to New Screen
+            router.replace('/(tabs)/home');
+        } catch (error) {
+            console.error("Error saving user data:", error);
         }
-        await setDoc(doc(db, 'users', email),data) 
-
-        setUserDetail(data);
-
-        // Navigate to New Screen
-    }
+    };
 
     return (
         <View style={{

@@ -4,7 +4,10 @@ import { UserDetailContext } from './../../context/UserDetailContext'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function Header() {
-    const {userDetail, setUserDetail}=useContext(UserDetailContext)
+    const {userDetail, setUserDetail} = useContext(UserDetailContext);
+    
+    console.log("Header component - userDetail:", userDetail);
+    
     return (
         <View style={{
             display: 'flex',
@@ -16,7 +19,7 @@ export default function Header() {
                 <Text style={{
                     fontFamily: 'outfit-bold',
                     fontSize: 25
-                }}>Hello, {userDetail?.name}</Text>
+                }}>Hello, {userDetail?.name || "User"}</Text>
                 <Text style={{
                     fontFamily: 'outfit',
                     fontSize: 17
@@ -26,5 +29,5 @@ export default function Header() {
                 <Ionicons name="settings-outline" size={32} color="black" />
             </TouchableOpacity>
         </View>
-    )
+    );
 }
