@@ -6,6 +6,7 @@ import NoCourse from "../../components/Home/NoCourse";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../config/firebaseConfig";
 import { UserDetailContext } from "../../context/UserDetailContext";
+import CourseList from "../../components/Home/CourseList";
 
 export default function Home() {
 
@@ -35,7 +36,11 @@ export default function Home() {
             paddingTop:Platform.OS == 'ios' && 45
         }}>
             <Header />
-            <NoCourse />
+            <CourseList />
+
+            {courseList?.length == 0?
+                <NoCourse /> :
+                null}
         </View>
     )
 }
