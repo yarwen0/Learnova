@@ -10,21 +10,23 @@ import CourseList from "../../components/Home/CourseList";
 
 export default function Home() {
 
-    const {userDetail, setUserDetail} = useContext(UserDetailContext);
-    const [courseList, setCourseList] = useState([]);
+    const { userDetail, setUserDetail } = useContext(UserDetailContext);
+    const [courseList, setCourseList] = useState([null]);
 
     useEffect(() => {
-        userDetail&&GetCourseList();
+        userDetail && GetCourseList();
     }, [userDetail])
 
-    const GetCourseList= async () => {
-        const q = query(collection(db, 'Courses'), where("createdBy",'==', userDetail?.email))
+    const GetCourseList = async () => {
+        setCourseList([])
+        const q = query(collection(db, 'Courses'), where
+        ("createdBy", '==', userDetail?.email));
         const querySnapshot = await getDocs(q);
 
         querySnapshot.forEach((doc) => {
             console.log("--", doc.data());
+            setCourseList(prev => [...prev, doc.data()])
         })
-
     }
 
 
@@ -36,11 +38,9 @@ export default function Home() {
             paddingTop:Platform.OS == 'ios' && 45
         }}>
             <Header />
-            <CourseList />
-
-            {courseList?.length == 0?
+            {courseList?.length == 0 ?
                 <NoCourse /> :
-                null}
+                <CourseList courseList={courseList} />}
         </View>
     )
 }
