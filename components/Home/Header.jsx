@@ -6,32 +6,26 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 export default function Header() {
   const { userDetail } = useContext(UserDetailContext);
 
-  console.log("Header component - userDetail:", userDetail); // Debugging log
+  console.log("Header component - userDetail:", userDetail);
 
   return (
-    <View
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
+    <View style={{
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+    }}>
       <View>
-        <Text
-          style={{
-            fontFamily: "outfit-bold",
-            fontSize: 25,
-          }}
-        >
-          Hello, {userDetail?.name}
+        <Text style={{
+          fontFamily: "outfit-bold",
+          fontSize: 25,
+        }}>
+          Hello, {userDetail?.fullname} 
         </Text>
-        <Text
-          style={{
-            fontFamily: "outfit",
-            fontSize: 17,
-          }}
-        >
+        <Text style={{
+          fontFamily: "outfit",
+          fontSize: 17,
+        }}>
           Let's Get Started!
         </Text>
       </View>
