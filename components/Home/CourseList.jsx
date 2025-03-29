@@ -15,8 +15,16 @@ export default function CourseList({ courseList }) {
 
       <FlatList 
         data={courseList}
+        horizontal={true}
         renderItem={({ item,index }) => (
-          <View key={index}>
+          <View key={index} style={styles.courseContainer}>
+            <Image source={imageAssets[item.banner_image]} 
+              style={{
+                width: 260,
+                height: 150,
+                borderRadius: 15
+              }}
+            />
             <Text>{item?.courseTitle}</Text>
           </View>
         )}
@@ -24,3 +32,10 @@ export default function CourseList({ courseList }) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  courseContainer:{
+
+
+  }
+})
