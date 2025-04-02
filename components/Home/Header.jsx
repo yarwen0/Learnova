@@ -20,7 +20,7 @@ export default function Header() {
           fontFamily: "outfit-bold",
           fontSize: 25,
         }}>
-          Hello, {userDetail?.fullname} 
+          Hello, {userDetail?.name} 
         </Text>
         <Text style={{
           fontFamily: "outfit",

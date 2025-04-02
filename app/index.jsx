@@ -20,6 +20,9 @@ export default function Index() {
       if (user) {
         console.log("User logged in:", user);
         const result = await getDoc(doc(db, "users", user.email));
+        console.log("Result:")
+        console.log(result)
+        
         if (result.exists()) {
           setUserDetail(result.data());
         }

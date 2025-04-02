@@ -21,13 +21,13 @@ export default function CourseList({ courseList }) {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item,index }) => (
           <View key={index} style={styles.courseContainer}>
-              {/* <Image source={imageAssets[item.banner_image]}
+               <Image source={imageAssets[item.banner_image]}
               style={{
                 width: '100%',
                 height: 150,
                 borderRadius: 15
               }}
-            /> */}
+            />
             <Text style={{
               fontFamily: 'outfit-bold',
               fontSize: 18,

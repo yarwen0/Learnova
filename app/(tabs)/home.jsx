@@ -11,7 +11,7 @@ import CourseList from "../../components/Home/CourseList";
 export default function Home() {
 
     const { userDetail, setUserDetail } = useContext(UserDetailContext);
-    const [courseList, setCourseList] = useState([null]);
+    const [courseList, setCourseList] = useState([]);
 
     useEffect(() => {
         userDetail && GetCourseList();
