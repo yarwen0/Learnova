@@ -3,6 +3,7 @@ import React from 'react'
 import {imageAssets} from './../../constant/Option'
 import { StyleSheet } from 'react-native'
 import Colors from '../../constant/Colors'
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function CourseList({ courseList }) {
 
@@ -35,7 +36,9 @@ export default function CourseList({ courseList }) {
             }}>{item?.courseTitle}</Text>
             <Text style={{
               fontFamily: 'outfit'
-            }}>{item?.chapters?.length} Chapters</Text>
+            }}>
+              <Ionicons name="book-outline" size={24} color="black" />
+              {item?.chapters?.length} Chapters</Text>
           </View>
         )}
       />
@@ -49,6 +52,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.BG_GRAY,
     margin: 6,
     borderRadius: 15,
-    width: 240
+    width: 260
   }
 })
