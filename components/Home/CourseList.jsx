@@ -34,11 +34,19 @@ export default function CourseList({ courseList }) {
               fontSize: 18,
               marginTop: 10
             }}>{item?.courseTitle}</Text>
-            <Text style={{
-              fontFamily: 'outfit'
+            <View style={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: 5,
+              alignItems: 'center',
+              marginTop: 5
             }}>
-              <Ionicons name="book-outline" size={24} color="black" />
-              {item?.chapters?.length} Chapters</Text>
+              <Ionicons name="book-outline" size={20} color="black" />
+              <Text style={{
+                fontFamily: 'outfit'
+              }}>
+                {item?.chapters?.length} Chapters</Text>
+              </View>
           </View>
         )}
       />
