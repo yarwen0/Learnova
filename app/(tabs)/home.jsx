@@ -7,6 +7,8 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../config/firebaseConfig";
 import { UserDetailContext } from "../../context/UserDetailContext";
 import CourseList from "../../components/Home/CourseList";
+import { PraticeOption } from "../../constant/Option";
+import PractiseSection from "../../components/Home/PractiseSection";
 
 export default function Home() {
 
@@ -40,7 +42,11 @@ export default function Home() {
             <Header />
             {courseList?.length == 0 ?
                 <NoCourse /> :
-                <CourseList courseList={courseList} />}
+                <View>
+                    <PractiseSection />
+                    <CourseList courseList={courseList} />
+                </View>
+                }
         </View>
     )
 }
