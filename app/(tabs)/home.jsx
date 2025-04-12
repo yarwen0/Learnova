@@ -9,6 +9,7 @@ import { UserDetailContext } from "../../context/UserDetailContext";
 import CourseList from "../../components/Home/CourseList";
 import { PraticeOption } from "../../constant/Option";
 import PractiseSection from "../../components/Home/PractiseSection";
+import CourseProgress from "../../components/Home/CourseProgress";
 
 export default function Home() {
 
@@ -43,6 +44,7 @@ export default function Home() {
             {courseList?.length == 0 ?
                 <NoCourse /> :
                 <View>
+                    <CourseProgress courseList={courseList} />
                     <PractiseSection />
                     <CourseList courseList={courseList} />
                 </View>
