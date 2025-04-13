@@ -2,7 +2,8 @@ import { View, Text, Image } from 'react-native';
 import React from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { imageAssets } from '../../constant/Option';
-import Intro from '../../components/CourseView/Intro';
+import Intro from '../../components/CourseView/intro';
+import Colors from '../../constant/Colors';
 
 export default function CourseView() {
 
@@ -10,7 +11,10 @@ export default function CourseView() {
   const course = JSON.parse(courseParams);
 
   return(
-    <View>
+    <View style={{
+        flex: 1,
+        backgroundColor: Colors.WHITE
+    }}>
         <Intro course={course} />
     </View>
   )
