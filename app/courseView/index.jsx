@@ -4,6 +4,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { imageAssets } from '../../constant/Option';
 import Intro from '../../components/CourseView/intro';
 import Colors from '../../constant/Colors';
+import Chapters from '../../components/CourseView/Chapters';
 
 export default function CourseView() {
 
@@ -16,6 +17,7 @@ export default function CourseView() {
         backgroundColor: Colors.WHITE
     }}>
         <Intro course={course} />
+        <Chapters course={course} />
     </View>
   )
 }
