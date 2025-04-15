@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, FlatList } from 'react-native';
 import React from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { imageAssets } from '../../constant/Option';
@@ -12,12 +12,15 @@ export default function CourseView() {
   const course = JSON.parse(courseParams);
 
   return(
-    <View style={{
-        flex: 1,
-        backgroundColor: Colors.WHITE
-    }}>
-        <Intro course={course} />
-        <Chapters course={course} />
-    </View>
+    <FlatList 
+        data={[]}
+        ListHeaderComponent={
+        <View style={{
+            flex: 1,
+            backgroundColor: Colors.WHITE
+        }}>
+            <Intro course={course} />
+            <Chapters course={course} />
+        </View>}/>
   )
 }

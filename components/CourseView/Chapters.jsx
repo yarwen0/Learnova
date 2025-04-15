@@ -1,6 +1,8 @@
 import { View, Text, FlatList } from 'react-native'
 import React from 'react'
 import { StyleSheet } from 'react-native'
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Colors from './../../constant/Colors' 
 
 export default function Chapters({course}) {
   return (
@@ -19,7 +21,11 @@ export default function Chapters({course}) {
                 padding: 18,
                 borderWidth: 0.5,
                 borderRadius: 15,
-                marginTop: 10
+                marginTop: 10, 
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center'
             }}>
                 <View style={{
                     display: 'flex',
@@ -29,6 +35,7 @@ export default function Chapters({course}) {
                     <Text style={styles.chapterText}>{index + 1}.</Text>
                     <Text style={styles.chapterText}>{item?.chapterName}</Text>
                 </View>
+                <Ionicons name="play" size={24} color={Colors.PRIMARY} />
             </View>
         )}
       />
