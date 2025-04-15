@@ -1,12 +1,14 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, Pressable, Platform } from 'react-native'
 import React from 'react'
 import { imageAssets } from '../../constant/Option'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from '../../constant/Colors';
 import Button from './../Shared/Button'
+import { useRouter } from 'expo-router';
 
 
 export default function Intro({course}) {
+    const router = useRouter();
   return (
     <View>
       <Image source={imageAssets[course?.banner_image]}
@@ -51,6 +53,15 @@ export default function Intro({course}) {
                     />
 
               </View>
+              <Pressable style={{
+                    position: 'absolute',
+                    padding: 10,
+                    paddingTop: 45
+                }}
+                    onPress={() => router.back()}
+                >
+                    <Ionicons name="arrow-back" size={24} color="black" />
+              </Pressable>
     </View>
   )
 }
