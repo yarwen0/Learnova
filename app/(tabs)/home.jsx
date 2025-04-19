@@ -15,13 +15,15 @@ export default function Home() {
 
     const { userDetail, setUserDetail } = useContext(UserDetailContext);
     const [courseList, setCourseList] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         userDetail && GetCourseList();
     }, [userDetail])
 
     const GetCourseList = async () => {
-        setCourseList([])
+        setLoading(true);
+        setCourseList([]);
         const q = query(collection(db, 'Courses'), where
         ("createdBy", '==', userDetail?.email));
         const querySnapshot = await getDocs(q);
@@ -30,12 +32,16 @@ export default function Home() {
             console.log("--", doc.data());
             setCourseList(prev => [...prev, doc.data()])
         })
+        setLoading(false);
     }
 
 
     return (
         <FlatList
         data={[]}
+        onRefresh={() => GetCourseList()}
+        refreshing={loading}
+        style={{flex: 1, backgroundColor: Colors.WHITE}}
         ListHeaderComponent={
         <View style= {{
             padding: 25,
