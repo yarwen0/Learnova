@@ -6,6 +6,13 @@ import * as Progress from 'react-native-progress';
 
 
 export default function CourseProgress({courseList}) {
+
+  const GetCompletedChapters = (course) => {
+    const completedChapter = course?.completedChapter?.length;
+    const perc = completedChapter/course?.chapters?.length;
+    return perc
+  }
+
   return (
     <View style={{
       marginTop: 10
@@ -59,11 +66,11 @@ export default function CourseProgress({courseList}) {
                     <View style={{
                       marginTop: 10
                     }}>
-                    <Progress.Bar progress={0} width={250} />
+                    <Progress.Bar progress={GetCompletedChapters(item)} width={250} />
                     <Text style={{
                       fontFamily: 'outfit',
                       marginTop: 2
-                    }}>3 out of 5 Chapter Completed</Text>
+                    }}>{item?.completedChapter?.length} out of {item?.chapters?.length} Chapter Completed</Text>
                     </View>
           </View>
         )}
