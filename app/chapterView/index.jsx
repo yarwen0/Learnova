@@ -16,7 +16,11 @@ export default function ChapterView() {
         return perc;
     }
 
-    const onChapterComplete() ={
+    const onChapterComplete =() => {
+        // Save Chapter Complete
+
+
+        //Go Back
 
     }
   return (
@@ -44,7 +48,7 @@ export default function ChapterView() {
                 marginTop: 7
             }}>{chapters?.content[currentPage]?.explain}</Text>
 
-            {chapters?.content[currentPage]?.code && <Text style={[styles.codeExampleText, {backgroundColor: Colors.BLACK}]}>{chapters?.content[currentPage]?.code}</Text>}
+            {chapters?.content[currentPage]?.code && <Text style={[styles.codeExampleText, {backgroundColor: Colors.BLACK, color: Colors.WHITE}]}>{chapters?.content[currentPage]?.code}</Text>}
             {/* <Text>Example:</Text> */}
             {chapters?.content[currentPage]?.example && <Text style={styles.codeExampleText}>{chapters?.content[currentPage]?.example}</Text>}
 
