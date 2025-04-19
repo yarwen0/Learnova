@@ -2,6 +2,7 @@ import { View, Text, Dimensions, Platform } from 'react-native'
 import React, { useState } from 'react'
 import { useLocalSearchParams } from 'expo-router'
 import * as Progress from 'react-native-progress';
+import Colors from '../../constant/Colors';
 
 
 export default function ChapterView() {
@@ -17,13 +18,26 @@ export default function ChapterView() {
     <View style={{
         padding: 25,
         paddingTop:Platform.OS == 'ios' && 60,
+        backgroundColor: Colors.WHITE,
+        flex: 1
         
 
     }}>
         <Progress.Bar progress={GetProgress(currentPage)} width={Dimensions.get('screen').width * 0.85} />
 
-        <View>
-            <Text>{chapters?.content[currentPage]?.topic}</Text>
+        <View style={{
+            marginTop: 20
+        }}>
+            <Text style={{
+                fontFamily: 'outfit-bold',
+                fontSize: 25
+            }}>{chapters?.content[currentPage]?.topic}</Text>
+
+            <Text style={{
+                fontFamily: 'outfit',
+                fontSize: 20,
+                marginTop: 7
+            }}>{chapters?.content[currentPage]?.explain}</Text>
         </View>
     </View>
   )
