@@ -26,7 +26,7 @@ export default function CourseList({ courseList }) {
         renderItem={({ item,index }) => (
           <TouchableOpacity 
             onPress={()=> router.push({
-              pathname: '/courseView',
+              pathname: '/courseView/' + item?.docId,
               params:{
                 courseParams:JSON.stringify(item)
               }
