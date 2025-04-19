@@ -25,7 +25,7 @@ export default function Chapters({course}) {
                 pathname: '/chapterView',
                 params:{
                   chapterParams: JSON.stringify(item),
-                  docId: item?.docId,
+                  docId: course?.docId,
                   chapterIndex:index
                 }
               })
