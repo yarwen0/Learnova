@@ -19,7 +19,8 @@ export default function CourseProgress({courseList}) {
     }}>
       <Text style={{
         fontFamily: 'outfit-bold',
-        fontSize: 25
+        fontSize: 25,
+        color: Colors.WHITE
       }}>Progress</Text>
 
       <FlatList
@@ -30,7 +31,7 @@ export default function CourseProgress({courseList}) {
           <View style={{
             margin: 7,
             padding: 15,
-            backgroundColor: Colors.BG_GRAY,
+            backgroundColor: Colors.WHITE,
             borderRadius: 15,
             width: 280
           }}>
