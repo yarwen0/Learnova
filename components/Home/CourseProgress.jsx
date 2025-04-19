@@ -70,7 +70,7 @@ export default function CourseProgress({courseList}) {
                     <Text style={{
                       fontFamily: 'outfit',
                       marginTop: 2
-                    }}>{item?.completedChapter?.length} out of {item?.chapters?.length} Chapter Completed</Text>
+                    }}>{item?.completedChapter?.length ?? 0} out of {item?.chapters?.length} Chapter Completed</Text>
                     </View>
           </View>
         )}
