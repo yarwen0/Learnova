@@ -1,10 +1,13 @@
-import { View, Text, FlatList, Image } from 'react-native'
+import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { PraticeOption } from '../../constant/Option'
 import Colors from '../../constant/Colors'
+import { useRouter } from 'expo-router'
 
 export default function PractiseSection() {
+  const router = useRouter();
   return (
+    
     <View style={{
         marginTop: 10
     }}>
@@ -18,7 +21,7 @@ export default function PractiseSection() {
             data={PraticeOption}
             numColumns={3}
             renderItem={({ item, index})=>(
-                <View key={index}
+                <TouchableOpacity onPress={() => router.push('/practice/'+ item.name)} key={index}
                 style={{
                     flex:1,
                     margin:5,
@@ -38,7 +41,7 @@ export default function PractiseSection() {
                         fontSize: 15,
                         color: Colors.WHITE
                     }}>{item.name}</Text>
-                </View>
+                </TouchableOpacity>
             )}
         />
       </View>
