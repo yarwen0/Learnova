@@ -4,7 +4,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router'
 import { imageAssets, PraticeOption } from '../../../constant/Option';
 import Colors from '../../../constant/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { query, collection, where, getDocs } from 'firebase/firestore';
+import { query, collection, where, getDocs, orderBy } from 'firebase/firestore';
 import {db} from './../../../config/firebaseConfig';
 import {UserDetailContext} from './../../../context/UserDetailContext';
 import CourseListGrid from '../../../components/PracticeScreen/CourseListGrid';
@@ -15,7 +15,7 @@ export default function PracticeTypeHomeScreen() {
     const option = PraticeOption.find(item => item.name==type);
     const {userDetail, setUserDetail} = useContext(UserDetailContext);
     const [loading, setLoading] = useState(false);
-    const [CourseList, setCourseList] = useState([]);
+    const [courseList, setCourseList] = useState([]);
 
     useEffect(() => {
         userDetail&&GetCourseList();
@@ -26,7 +26,8 @@ export default function PracticeTypeHomeScreen() {
         setCourseList([]);
         try {
         const q = query(collection(db, 'Courses')
-        , where('createdBy', '==',userDetail?.email));
+        , where('createdBy', '==',userDetail?.email), 
+        orderBy('createdOn','desc'));
 
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
@@ -74,7 +75,9 @@ export default function PracticeTypeHomeScreen() {
                 marginTop: 150,
             }}
             color={Colors.PRIMARY} />}
-            <CourseListGrid course />
+            <CourseListGrid courseList={courseList}
+            option={option}
+            />
         </View>
     </SafeAreaView>
 
