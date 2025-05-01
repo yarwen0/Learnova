@@ -7,6 +7,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { query, collection, where, getDocs } from 'firebase/firestore';
 import {db} from './../../../config/firebaseConfig';
 import {UserDetailContext} from './../../../context/UserDetailContext';
+import CourseListGrid from '../../../components/PracticeScreen/CourseListGrid';
 
 export default function PracticeTypeHomeScreen() {
     const router = useRouter();
@@ -14,6 +15,7 @@ export default function PracticeTypeHomeScreen() {
     const option = PraticeOption.find(item => item.name==type);
     const {userDetail, setUserDetail} = useContext(UserDetailContext);
     const [loading, setLoading] = useState(false);
+    const [CourseList, setCourseList] = useState([]);
 
     useEffect(() => {
         userDetail&&GetCourseList();
@@ -21,14 +23,23 @@ export default function PracticeTypeHomeScreen() {
 
     const GetCourseList = async() => {
         setLoading(true);
+        setCourseList([]);
+        try {
         const q = query(collection(db, 'Courses')
         , where('createdBy', '==',userDetail?.email));
 
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
-            console.log(doc.data());
+            //console.log(doc.data());
+            setCourseList(prev=>[...prev, doc.data()])
         })
         setLoading(false);
+
+        }
+        catch(e) {
+            console.log(e)
+            setLoading(false)
+        }
     }
   return (
     <SafeAreaView>
@@ -59,7 +70,11 @@ export default function PracticeTypeHomeScreen() {
                 }}>{type}</Text>
             </View>
             {loading&&<ActivityIndicator size={'large'} 
+            style={{
+                marginTop: 150,
+            }}
             color={Colors.PRIMARY} />}
+            <CourseListGrid course />
         </View>
     </SafeAreaView>
 
