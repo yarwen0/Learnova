@@ -13,7 +13,7 @@ export default function CourseListGrid({ courseList, option }) {
                 router.push({
                     pathname:'/quiz',
                     params:{
-                        courseParams:course
+                        courseParams: JSON.stringify(course)
                     }
                 })
             }
