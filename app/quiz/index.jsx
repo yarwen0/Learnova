@@ -1,12 +1,18 @@
-import { View, Text, SafeAreaView, Image, Pressable } from 'react-native'
-import React from 'react'
+import { View, Text, SafeAreaView, Image, Pressable, Dimensions } from 'react-native'
+import React, { useState } from 'react'
 import { useLocalSearchParams } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from '../../constant/Colors';
+import * as Progress from 'react-native-progress';
+import Button from './../../components/Shared/Button'
+
 
 export default function Quiz() {
     const { courseParams } = useLocalSearchParams();
     const course=JSON.parse(courseParams);
+    const [currentPage, setCurrentPage] = useState(0);
+    const quiz = course?.quiz;
+    const [selectedOption, setSelectedOption] = useState();
   return (
     <SafeAreaView> 
         <View>
@@ -37,6 +43,41 @@ export default function Quiz() {
                         color: Colors.WHITE
                     }}>0 of 5</Text>
                 </View>
+                <View style={{
+                    marginTop: 20
+                }}>
+                    <Progress.Bar progress={0.3} width={Dimensions.get('window').width * 0.85} 
+                    color={Colors.WHITE} height={10} />
+                </View>
+                <View style={{
+                    padding: 25,
+                    backgroundColor: Colors.WHITE,
+                    marginTop: 30,
+                    height: Dimensions.get('screen').height * 0.65,
+                    elevation: 1,
+                    borderRadius: 20
+                }}>
+                    <Text style={{
+                        fontSize: 25,
+                        fontFamily: 'outfit-bold',
+                        textAlign: 'center'
+                    }}>{quiz[currentPage]?.question}</Text>
+
+                    {quiz[currentPage]?.options.map((item,index)=>(
+                        <View key={index} style={{
+                            padding: 20,
+                            borderWidth: 0.3,
+                            borderRadius: 15,
+                            marginTop: 8
+                        }}>
+                            <Text style={{
+                                fontFamily: 'outfit',
+                                fontSize: 20
+                            }}>{item}</Text>
+                        </View>
+                    ))}
+                </View>
+                <Button text={'Next'} />
             </View>
         </View>
     </SafeAreaView>
