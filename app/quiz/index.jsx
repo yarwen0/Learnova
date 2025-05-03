@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, Pressable, Dimensions } from 'react-native'
+import { View, Text, SafeAreaView, Image, Pressable, Dimensions, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { useLocalSearchParams } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -41,7 +41,7 @@ export default function Quiz() {
                         fontFamily: 'outfit-bold',
                         fontSize: 25,
                         color: Colors.WHITE
-                    }}>0 of 5</Text>
+                    }}>{currentPage + 1} of 5</Text>
                 </View>
                 <View style={{
                     marginTop: 20
@@ -64,20 +64,26 @@ export default function Quiz() {
                     }}>{quiz[currentPage]?.question}</Text>
 
                     {quiz[currentPage]?.options.map((item,index)=>(
-                        <View key={index} style={{
+                        <TouchableOpacity 
+                        onPress={()=>{setSelectedOption(index)}}
+                        key={index} style={{
                             padding: 20,
-                            borderWidth: 0.3,
+                            borderWidth: 1,
                             borderRadius: 15,
-                            marginTop: 8
+                            marginTop: 8,
+                            backgroundColor: selectedOption==index ? Colors.LIGHT_GREEN : null,
+                            borderColor: selectedOption == index ? Colors.GREEN : null
                         }}>
                             <Text style={{
                                 fontFamily: 'outfit',
                                 fontSize: 20
                             }}>{item}</Text>
-                        </View>
+                        </TouchableOpacity>
                     ))}
                 </View>
-                <Button text={'Next'} />
+                {selectedOption && <Button text={'Next'} 
+                onPress={() => {setCurrentPage(currentPage+1);setSelectedOption(null)}}
+                />}
             </View>
         </View>
     </SafeAreaView>
