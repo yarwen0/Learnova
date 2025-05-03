@@ -5,6 +5,8 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from '../../constant/Colors';
 import * as Progress from 'react-native-progress';
 import Button from './../../components/Shared/Button'
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../../config/firebaseConfig';
 
 
 export default function Quiz() {
@@ -13,6 +15,42 @@ export default function Quiz() {
     const [currentPage, setCurrentPage] = useState(0);
     const quiz = course?.quiz;
     const [selectedOption, setSelectedOption] = useState();
+    const [result, setResult] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const GetProgress = (currentPage) => {
+        const perc=(currentPage/quiz?.length);
+        return perc;
+    }
+
+    const OnOptionSelect=(selectedChoice) => {
+        setResult(prev => ({
+            ...prev, 
+            [currentPage]:{
+                userChoice:selectedChoice,
+                isCorrect:quiz[currentPage]?.correctAns==selectedChoice,
+                question: quiz[currentPage]?.question,
+                correctAns: quiz[currentPage]?.correctAns
+            }
+        }))
+        console.log(result);
+    }
+
+    const onQuizFinish = async () => {
+        setLoading(true);
+        // Save the resut in Database for Quiz
+        try{
+            await updateDoc(doc(db, 'Courses', course?.docId), {
+                quizResult: result
+            })
+            setLoading(false);
+        }
+        catch (e) {
+            setLoading(false);
+        }
+        // Redirect user to Quiz Summary
+    }
+
   return (
     <SafeAreaView> 
         <View>
@@ -41,12 +79,12 @@ export default function Quiz() {
                         fontFamily: 'outfit-bold',
                         fontSize: 25,
                         color: Colors.WHITE
-                    }}>{currentPage + 1} of 5</Text>
+                    }}>{currentPage + 1} of {quiz?.length}</Text>
                 </View>
                 <View style={{
                     marginTop: 20
                 }}>
-                    <Progress.Bar progress={0.3} width={Dimensions.get('window').width * 0.85} 
+                    <Progress.Bar progress={GetProgress(currentPage)} width={Dimensions.get('window').width * 0.85} 
                     color={Colors.WHITE} height={10} />
                 </View>
                 <View style={{
@@ -65,7 +103,10 @@ export default function Quiz() {
 
                     {quiz[currentPage]?.options.map((item,index)=>(
                         <TouchableOpacity 
-                        onPress={()=>{setSelectedOption(index)}}
+                        onPress={()=>{setSelectedOption(index);
+                            OnOptionSelect(item)
+
+                        }}
                         key={index} style={{
                             padding: 20,
                             borderWidth: 1,
@@ -81,9 +122,15 @@ export default function Quiz() {
                         </TouchableOpacity>
                     ))}
                 </View>
-                {selectedOption && <Button text={'Next'} 
+                {(selectedOption?.toString() && quiz?.length - 1 > currentPage) && <Button text={'Next'} 
                 onPress={() => {setCurrentPage(currentPage+1);setSelectedOption(null)}}
                 />}
+
+                    {(selectedOption?.toString() && quiz?.length - 1 == currentPage) && 
+                     <Button text='Finish' 
+                     loading={loading}
+                        onPress={() => onQuizFinish()}
+                     />}
             </View>
         </View>
     </SafeAreaView>
