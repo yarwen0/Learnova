@@ -56,8 +56,6 @@ export default function Quiz() {
         catch (e) {
             setLoading(false);
         }
-        // Redirect user to Quiz Summary
-
     }
 
   return (
@@ -81,7 +79,7 @@ export default function Quiz() {
                     alignItems: 'center'
 
                 }}>
-                    <Pressable>
+                    <Pressable onPress={() => router.back()}>
                         <Ionicons name="arrow-back" size={30} color="white" />
                     </Pressable>
                     <Text style={{
