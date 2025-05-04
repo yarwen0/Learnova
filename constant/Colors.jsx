@@ -5,5 +5,7 @@ export default{
     BG_GRAY: '#f2f2f2',
     BLACK: '#000',
     GREEN: '#24b351',
-    LIGHT_GREEN: '#dbffdd'
+    LIGHT_GREEN: '#dbffdd',
+    RED: '#FF0000',
+    LIGHT_RED: '#FF7F7F'
 }
