@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, Image, Pressable, Dimensions, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from '../../constant/Colors';
 import * as Progress from 'react-native-progress';
@@ -17,6 +17,7 @@ export default function Quiz() {
     const [selectedOption, setSelectedOption] = useState();
     const [result, setResult] = useState([]);
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const GetProgress = (currentPage) => {
         const perc=(currentPage/quiz?.length);
@@ -44,11 +45,19 @@ export default function Quiz() {
                 quizResult: result
             })
             setLoading(false);
+
+            router.replace({
+                pathname: '/quiz/summary',
+                params: {
+                    quizResultParam: JSON.stringify(result)
+                }
+            })
         }
         catch (e) {
             setLoading(false);
         }
         // Redirect user to Quiz Summary
+
     }
 
   return (
