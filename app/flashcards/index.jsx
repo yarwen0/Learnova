@@ -75,11 +75,21 @@ export default function Flashcards() {
                 <FlipCard style={styles.flipCard}>
                   {/* Face Side */}
                   <View style={styles.frontCard}>
-                    <Text>The Face</Text>
+                    <Text style={{
+                      fontFamily: 'outfit-bold',
+                      fontSize: 28
+                    }}>{item?.front}</Text>
                   </View>
                   {/* Back Side */}
                   <View style={styles.backCard}>
-                    <Text>The Back</Text>
+                    <Text style={{
+                      width: Dimensions.get('screen').width * 0.72,
+                      fontFamily: 'outfit',
+                      fontSize: 28,
+                      padding: 20,
+                      textAlign: 'center',
+                      color: Colors.WHITE
+                    }}>{item?.back}</Text>
                   </View>
                 </FlipCard>
               </View>
@@ -93,12 +103,28 @@ export default function Flashcards() {
 
 const styles = StyleSheet.create({
   flipCard:{
-
+    width: Dimensions.get('screen').width * 0.72,
+    height: 400,
+    backgroundColor: Colors.WHITE,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    marginHorizontal: Dimensions.get('screen').width * 0.05
   },
   frontCard:{
-
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    borderRadius: 20
   },
   backCard:{
-
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    backgroundColor: Colors.PRIMARY,
+    borderRadius: 20
   }
 })
