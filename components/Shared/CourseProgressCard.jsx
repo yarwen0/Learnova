@@ -2,9 +2,17 @@ import { View, Text, Image } from "react-native";
 import React from "react";
 import Colors from "../../constant/Colors";
 import * as Progress from 'react-native-progress';
+import { imageAssets } from "../../constant/Option";
 
 
-export default function CourseProgressCard({item}) {
+export default function CourseProgressCard({course, item}) {
+
+    const GetCompletedChapters = (course) => {
+        const completedChapter = course?.completedChapter?.length;
+        const perc = completedChapter/course?.chapters?.length;
+        return perc
+      }
+
   return (
     <View
       style={{
