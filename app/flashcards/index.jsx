@@ -30,6 +30,12 @@ export default function Flashcards() {
     setCurrentPage(index);
   }
 
+  const GetProgress = (currentPage) => {
+    const perc=(currentPage/flashcard?.length);
+    return perc;
+}
+
+
   return (
     <SafeAreaView>
       <View>
@@ -101,7 +107,7 @@ export default function Flashcards() {
                   {/* Back Side */}
                   <View style={styles.backCard}>
                     <Text style={{
-                      width: Dimensions.get('screen').width * 0.72,
+                      width: Dimensions.get('screen').width * 0.78,
                       fontFamily: 'outfit',
                       fontSize: 28,
                       padding: 20,
@@ -121,7 +127,7 @@ export default function Flashcards() {
 
 const styles = StyleSheet.create({
   flipCard:{
-    width: Dimensions.get('screen').width * 0.72,
+    width: Dimensions.get('screen').width * 0.78,
     height: 400,
     backgroundColor: Colors.WHITE,
     display: 'flex',
