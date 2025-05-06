@@ -1,13 +1,16 @@
 import { View, Text, SafeAreaView, Image, FlatList, Pressable, StyleSheet} from 'react-native'
 import React, { useState } from 'react'
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import Colors from '../../constant/Colors';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 export default function QuestionAnswer() {
     const {courseParams} = useLocalSearchParams();
     const course = JSON.parse(courseParams);
     const qaList = course?.qa
     const [selectedQuestion, setSelectedQuestion] = useState();
+    const router = useRouter();
 
     const OnQuestionSelect=(index)=>{
         if(selectedQuestion==index)
@@ -34,11 +37,22 @@ export default function QuestionAnswer() {
             padding: 20,
             marginTop: 35
         }}>
+            <View style={{
+                display: 'flex',
+                flexDirection: 'row',
+                gap: 7,
+                alignItems: 'center'
+            }}>
+                <Pressable onPress={() => router.back()}>
+                    <Ionicons name="arrow-back" size={30} color="white" />
+                </Pressable>
             <Text style={{
                 fontFamily: 'outfit-bold',
                 fontSize: 28,
                 color: Colors.WHITE
             }}>Question & Answers</Text>
+            </View>
+
             <Text style={{
                 fontFamily: 'outfit',
                 fontSize: 20,
@@ -56,8 +70,16 @@ export default function QuestionAnswer() {
                             fontSize: 20
                         }}>{item?.question}</Text>
                         {selectedQuestion == index &&
-                            <View>
-                                <Text>{item?.answer}</Text>
+                            <View style={{
+                                borderTopWidth:  0.4,
+                                marginVertical: 10,
+                            }}>
+                                <Text style={{
+                                    fontFamily: 'outfit',
+                                    fontSize: 17,
+                                    color: Colors.GREEN,
+                                    marginTop: 10
+                                }}>Answer: {item?.answer}</Text>
                             </View>
                         }
                     </Pressable>
