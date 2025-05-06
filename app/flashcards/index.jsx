@@ -92,7 +92,6 @@ export default function Flashcards() {
                 key={index}
                 style={{
                   height: 500,
-                  width: width * 0.9,
                   marginTop: 60
                 }}
               >
