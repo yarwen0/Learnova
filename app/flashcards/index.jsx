@@ -9,10 +9,12 @@ import {
   StyleSheet
 } from "react-native";
 import React, { useState } from "react";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Colors from "../../constant/Colors";
 import FlipCard from "react-native-flip-card";
+import * as Progress from 'react-native-progress';
+
 
 export default function Flashcards() {
   const { courseParams } = useLocalSearchParams();
@@ -20,6 +22,13 @@ export default function Flashcards() {
   const flashcard = course?.flashcards;
   const [currentPage, setCurrentPage] = useState(0);
   const width = Dimensions.get("screen").width;
+  const router = useRouter();
+
+  const onScroll=(event) => {
+    const index = Math.round(event?.nativeEvent?.contentOffset.x/width)
+    console.log(index);
+    setCurrentPage(index);
+  }
 
   return (
     <SafeAreaView>
@@ -59,17 +68,26 @@ export default function Flashcards() {
               {currentPage + 1} of {flashcard?.length}
             </Text>
           </View>
+          <View style={{
+              marginTop: 20
+              }}>
+                <Progress.Bar progress={GetProgress(currentPage)} width={Dimensions.get('window').width * 0.85} 
+                color={Colors.WHITE} height={10} />
+            </View>
 
           <FlatList
             data={flashcard}
             horizontal={true}
             pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onScroll={onScroll}
             renderItem={({ item, index }) => (
               <View
                 key={index}
                 style={{
                   height: 500,
                   width: width * 0.9,
+                  marginTop: 60
                 }}
               >
                 <FlipCard style={styles.flipCard}>
