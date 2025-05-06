@@ -8,6 +8,16 @@ export default function QuestionAnswer() {
     const course = JSON.parse(courseParams);
     const qaList = course?.qa
     const [selectedQuestion, setSelectedQuestion] = useState();
+
+    const OnQuestionSelect=(index)=>{
+        if(selectedQuestion==index)
+        {
+            setSelectedQuestion(null)
+        }
+        else{
+            setSelectedQuestion(index)
+        }
+    }
   return (
     <SafeAreaView>
     <View>
@@ -39,7 +49,7 @@ export default function QuestionAnswer() {
                 data={qaList}
                 renderItem={({ item,index })=>(
                     <Pressable style={styles?.card}
-                     onPress={() => setSelectedQuestion(index)}
+                     onPress={() => OnQuestionSelect(index)}
                     >
                         <Text style={{
                             fontFamily: 'outfit-bold',
