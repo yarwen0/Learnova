@@ -5,7 +5,7 @@ import * as Progress from 'react-native-progress';
 import { imageAssets } from "../../constant/Option";
 
 
-export default function CourseProgressCard({course, item}) {
+export default function CourseProgressCard({ item, width=280}) {
 
     const GetCompletedChapters = (course) => {
         const completedChapter = course?.completedChapter?.length;
@@ -20,7 +20,7 @@ export default function CourseProgressCard({course, item}) {
         padding: 15,
         backgroundColor: Colors.WHITE,
         borderRadius: 15,
-        width: 280,
+        width: width,
       }}
     >
       <View

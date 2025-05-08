@@ -11,6 +11,7 @@ import { UserDetailContext } from "../../context/UserDetailContext";
 import CourseProgressCard from "../../components/Shared/CourseProgressCard";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../../config/firebaseConfig";
+import Colors from "../../constant/Colors";
 
 export default function Progress() {
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
@@ -56,11 +57,18 @@ export default function Progress() {
             padding: 20,
           }}
         >
+            <Text style={{
+                fontFamily: 'outfit-bold',
+                fontSize: 30,
+                color: Colors.WHITE,
+                marginBlock: 10,
+                marginTop: 20
+            }}>Course Progress</Text>
           <FlatList
             data={courseList}
             renderItem={({ item, index }) => (
               <TouchableOpacity>
-                <CourseProgressCard item={item} />
+                <CourseProgressCard item={item} width={"100%"}/>
               </TouchableOpacity>
             )}
           />
