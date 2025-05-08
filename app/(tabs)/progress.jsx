@@ -66,9 +66,12 @@ export default function Progress() {
             }}>Course Progress</Text>
           <FlatList
             data={courseList}
+            showsHorizontalScrollIndicator={false}
+            onRefresh={() => GetCourseList()}
+            refreshing={loading}
             renderItem={({ item, index }) => (
               <TouchableOpacity>
-                <CourseProgressCard item={item} width={"100%"}/>
+                <CourseProgressCard item={item} width={"96%"}/>
               </TouchableOpacity>
             )}
           />

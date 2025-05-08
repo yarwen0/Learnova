@@ -68,7 +68,7 @@ export default function CourseProgressCard({ item, width=280}) {
           marginTop: 10,
         }}
       >
-        <Progress.Bar progress={GetCompletedChapters(item)} width={250} />
+        <Progress.Bar progress={GetCompletedChapters(item)} width={width-30} />
         <Text
           style={{
             fontFamily: "outfit",
