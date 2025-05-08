@@ -12,11 +12,13 @@ import CourseProgressCard from "../../components/Shared/CourseProgressCard";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../../config/firebaseConfig";
 import Colors from "../../constant/Colors";
+import { useRouter } from "expo-router";
 
 export default function Progress() {
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   const [courseList, setCourseList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     userDetail && GetCourseList();
@@ -70,7 +72,13 @@ export default function Progress() {
             onRefresh={() => GetCourseList()}
             refreshing={loading}
             renderItem={({ item, index }) => (
-              <TouchableOpacity>
+              <TouchableOpacity onPress={()=> router.push({
+                pathname: '/courseView/' + item?.docId,
+                params:{
+                  courseParams:JSON.stringify(item)
+                }
+  
+              })}>
                 <CourseProgressCard item={item} width={"96%"}/>
               </TouchableOpacity>
             )}
