@@ -6,7 +6,7 @@ import Colors from '../../constant/Colors'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
 
-export default function CourseList({ courseList, heading = "Courses" }) {
+export default function CourseList({ courseList, heading = "Courses", enroll=false}) {
 
   const router = useRouter();
 
@@ -28,7 +28,8 @@ export default function CourseList({ courseList, heading = "Courses" }) {
             onPress={()=> router.push({
               pathname: '/courseView/' + item?.docId,
               params:{
-                courseParams:JSON.stringify(item)
+                courseParams: JSON.stringify(item),
+                enroll: enroll
               }
 
             })}

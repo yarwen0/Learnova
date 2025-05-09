@@ -9,10 +9,11 @@ export default function Chapters({course}) {
 
   const router = useRouter();
   const isChapterCompleted = (index) => {
-    const isCompleted= course?.completedChapter.find(item=>Number(item)==index)
-
-    return isCompleted? true : false
-  }
+    if (!Array.isArray(course?.completedChapter)) return false;
+  
+    return course.completedChapter.find(item => Number(item) === index) !== undefined;
+  };
+  
   return (
     <View style={{
         padding: 20
