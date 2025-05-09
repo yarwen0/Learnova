@@ -23,10 +23,10 @@ export default function Explore() {
                     <View key={index} style={{
                         marginTop: 10
                     }}>
-                        <Text style={{
+                        {/* <Text style={{
                             fontFamily: 'outfit-bold',
                             fontSize: 20
-                        }}>{item}</Text>
+                        }}>{item}</Text> */}
                         <CourseListByCategory category={item} />
                     </View>
                 ))}
