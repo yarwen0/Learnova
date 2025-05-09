@@ -20,7 +20,6 @@ export default function Profile() {
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   const router = useRouter();
 
-  // drop the "My Subscription" item
   const menuItems = ProfileMenu.filter(item => item.name !== 'My Subscription');
 
   const onMenuClick = (item) => {
@@ -41,7 +40,6 @@ export default function Profile() {
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.header}>Profile</Text>
 
-        {/* bigger picture */}
         <Image
           source={require('../../assets/images/landing.png')}
           style={styles.avatar}
