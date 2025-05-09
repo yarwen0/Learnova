@@ -18,12 +18,18 @@ export default function Intro({course, enroll}) {
     const onEnrollCourse = async () => {
         const docId = Date.now().toString();
         setLoading(true);
-        await setDoc(doc(db, 'Courses', docId),{
-            ...course,
+        const data ={...course,
             createdBy:userDetail?.email,
             createdOn:new Date(),
-            enrolled:true
-        })
+            enrolled:true}
+        await setDoc(doc(db, 'Courses', docId), data)
+        router.push({
+            pathname: '/courseView/' + docId,
+            params:{
+              courseParams: JSON.stringify(data),
+              enroll: false
+            }
+          })
         setLoading(false);
     }
   return (
