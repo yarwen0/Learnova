@@ -7,7 +7,7 @@ import Button from './../Shared/Button'
 import { useRouter } from 'expo-router';
 
 
-export default function Intro({course}) {
+export default function Intro({course, enroll}) {
     const router = useRouter();
   return (
     <View>
@@ -48,9 +48,12 @@ export default function Intro({course}) {
                         fontsize: 18,
                         color: Colors.GRAY
                     }}>{course?.description}</Text>
+                    {enroll?<Button text='Enroll Now' />:
+
                     <Button text={'Start Now'}
                         onPress={() => console.log('')}
-                    />
+
+                    />}
 
               </View>
               <Pressable style={{

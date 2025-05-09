@@ -43,7 +43,9 @@ export default function CourseListByCategory({ category }) {
 
   return (
     <View>
-      {courseList?.length > 0 &&<CourseList courseList={courseList} heading={category} />}
+      {courseList?.length > 0 && <CourseList courseList={courseList} heading={category} 
+      enroll={true}
+      />}
     </View>
   );
 }
