@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text, SafeAreaView, FlatList } from "react-native";
 import React from "react";
 import Colors from './../../constant/Colors'
 import { CourseCategory } from './../../constant/Option'
@@ -9,6 +9,12 @@ export default function Explore() {
         <SafeAreaView style={{
             backgroundColor: Colors.WHITE,
             flex: 1}}>
+            <FlatList data={[]}
+            style={{
+                flex: 1,
+                backgroundColor: Colors.WHITE
+            }}
+            ListHeaderComponent={
             <View style={{
                 padding: 25,
                 backgroundColor: Colors.WHITE,
@@ -30,7 +36,7 @@ export default function Explore() {
                         <CourseListByCategory category={item} />
                     </View>
                 ))}
-            </View>
+            </View>} />
         </SafeAreaView>
     )
 }
