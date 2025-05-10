@@ -59,8 +59,9 @@ Learnova empowers users to take control of their learning journey. Users can inp
     * Expo CLI
     * TypeScript
 
-## Project Structure
+## 📁 Project Structure
 
+```
 learnova/
 ├── app/                      # Main application screens and routing logic
 │   ├── (tabs)/               # Layout and screens for tab navigation
@@ -79,7 +80,7 @@ learnova/
 ├── assets/                   # Static assets (images, fonts)
 │   ├── fonts/
 │   └── images/
-├── components/               # Reusable UI components (inferred, based on imports)
+├── components/               # Reusable UI components
 │   ├── Explore/
 │   │   └── CourseListByCategory.jsx
 │   ├── Home/
@@ -92,20 +93,22 @@ learnova/
 │       ├── Button.jsx
 │       └── CourseProgressCard.jsx
 ├── config/                   # Configuration files
-│   ├── AiModel.js            # Setup for Google Generative AI (inferred)
-│   └── firebaseConfig.js     # Firebase initialization (inferred)
-├── constant/                 # Constant values and options
-│   ├── Colors.js             # Color palette (inferred)
-│   ├── Option.js             # Static options (CourseCategory, PraticeOption, ProfileMenu) (inferred)
-│   └── Prompt.js             # AI prompts (inferred)
+│   ├── AiModel.js            # Setup for Google Generative AI
+│   └── firebaseConfig.js     # Firebase initialization
+├── constant/                 # Static data and UI constants
+│   ├── Colors.js
+│   ├── Option.js
+│   └── Prompt.js
 ├── context/                  # React Context API setup
-│   └── UserDetailContext.js  # Context for user details (inferred)
-├── scripts/                  # Utility scripts
+│   └── UserDetailContext.js
+├── scripts/                  # Project utilities
 │   └── reset-project.js
-├── app.json                  # Expo configuration file
-├── package.json              # Project dependencies and scripts
-├── tsconfig.json             # TypeScript configuration
-└── babel.config.js           # Babel configuration (standard with Expo)
+├── app.json                  # Expo config
+├── package.json              # NPM dependencies and scripts
+├── tsconfig.json             # TypeScript config
+└── babel.config.js           # Babel config for Expo
+```
+
 
 ## Getting Started (For Developers)
 
