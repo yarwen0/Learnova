@@ -49,7 +49,7 @@ export default function Profile() {
           {userDetail?.name}
         </Text>
         <Text style={styles.email}>
-          {userDetail?.email || 'admin@tubeguruji.com'}
+          {userDetail?.email}
         </Text>
 
         <View style={styles.menu}>
