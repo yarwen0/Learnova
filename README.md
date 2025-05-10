@@ -2,7 +2,7 @@
 
 Learnova is a mobile learning application designed to transform the way users learn by generating personalized learning paths tailored to their needs. It leverages AI to create courses, allows users to track their progress, and explore a variety of educational content.
 
-**Live Application Link:** [https://learnova-0--b6dwhxhh4h.expo.app](https://learnova-0--b6dwhxhh4h.expo.app)
+**Live Application Link:** [https://learnova-0--katl41h5of.expo.app](https://learnova-0--katl41h5of.expo.app)
 
 ## Table of Contents
 
